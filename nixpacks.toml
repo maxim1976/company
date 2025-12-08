@@ -1,0 +1,18 @@
+[phases.setup]
+nixPkgs = ["nodejs_20", "python312", "postgresql"]
+
+[phases.install]
+cmds = [
+    "npm ci --prefix frontend",
+    "pip install uv && uv sync --no-dev"
+]
+
+[phases.build]
+cmds = [
+    "npm run build --prefix frontend",
+    "uv run python backend/manage.py collectstatic --noinput",
+    "uv run python backend/manage.py migrate"
+]
+
+[start]
+cmd = "cd backend && gunicorn core.wsgi --bind 0.0.0.0:$PORT"
