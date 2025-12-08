@@ -1,8 +1,8 @@
 [phases.setup]
-providers = ["python"]
+nixPkgs = ["python312", "postgresql"]
 
 [phases.install]
-cmds = ["pip install uv", "uv sync --locked --no-dev"]
+cmds = ["curl -LsSf https://astral.sh/uv/install.sh | sh", "uv sync --locked --no-dev"]
 
 [phases.build]
 cmds = ["uv run python backend/manage.py collectstatic --noinput"]
