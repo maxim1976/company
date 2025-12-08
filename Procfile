@@ -1,1 +1,1 @@
-web: cd backend && gunicorn core.wsgi
+web: bash start.sh
