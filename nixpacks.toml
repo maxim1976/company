@@ -2,10 +2,7 @@
 nixPkgs = ["python312", "postgresql"]
 
 [phases.install]
-cmds = ["curl -LsSf https://astral.sh/uv/install.sh | sh", "export PATH=\"$HOME/.local/bin:$PATH\" && uv sync --frozen --no-dev"]
-
-[phases.build]
-cmds = ["export PATH=\"$HOME/.local/bin:$PATH\" && uv run python backend/manage.py collectstatic --noinput"]
+cmds = ["pip install --upgrade pip", "pip install -e . --no-cache-dir"]
 
 [start]
-cmd = "export PATH=\"$HOME/.local/bin:$PATH\" && cd backend && uv run python manage.py migrate && uv run gunicorn core.wsgi --bind 0.0.0.0:$PORT"
+cmd = "cd backend && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn core.wsgi --bind 0.0.0.0:"
