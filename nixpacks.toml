@@ -4,5 +4,8 @@ nixPkgs = ["nodejs_20", "npm"]
 [phases.install]
 cmds = ["uv sync --no-dev"]
 
+[phases.build]
+cmds = ["cd frontend && npm install && npm run build", "uv run python backend/manage.py collectstatic --noinput", "uv run python backend/manage.py migrate"]
+
 [start]
-cmd = "bash start.sh"
+cmd = "cd backend && gunicorn core.wsgi"
