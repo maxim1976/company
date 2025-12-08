@@ -16,12 +16,9 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import include, path, re_path
-from django.views.generic import TemplateView
+from django.urls import include, path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/", include("landing_page.urls")),
-    # Serve React SPA for all other routes
-    re_path(r"^(?!api/|admin/).*$", TemplateView.as_view(template_name="index.html")),
+    path("", include("landing_page.urls")),
 ]

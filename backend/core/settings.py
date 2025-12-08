@@ -72,7 +72,7 @@ ROOT_URLCONF = "core.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "frontend" / "dist"],
+        "DIRS": [BACKEND_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -134,22 +134,15 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = BACKEND_DIR / "staticfiles"
-
-# Only add frontend/dist/assets if it exists (after frontend build)
-_frontend_assets = BASE_DIR / "frontend" / "dist" / "assets"
-STATICFILES_DIRS = [_frontend_assets] if _frontend_assets.exists() else []
+STATICFILES_DIRS = [BACKEND_DIR / "static"]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# CORS settings
+# CORS settings (not needed for Django templates, but keeping for API)
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
     "https://company-production-d448.up.railway.app",
 ]
 CORS_ALLOW_ALL_ORIGINS = DEBUG  # Allow all in development
