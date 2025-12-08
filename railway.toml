@@ -1,0 +1,5 @@
+[build]
+command = "cd frontend && npm install && npm run build && cd .. && uv sync && uv run python backend/manage.py collectstatic --noinput && uv run python backend/manage.py migrate"
+
+[deploy]
+startCommand = "cd backend && gunicorn core.wsgi"

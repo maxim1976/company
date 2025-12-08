@@ -1,0 +1,30 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Environment variables
+.env
+
+# Database
+*.sqlite3
+db.sqlite3
+
+# Django
+backend/staticfiles/
+
+# Frontend build (keep in git for Railway or rebuild on deploy)
+# frontend/dist/
+
+# Node
+frontend/node_modules/
+
+# IDE
+.idea/
+.vscode/
+*.swp
