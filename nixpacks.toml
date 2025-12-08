@@ -4,5 +4,8 @@ providers = ["python"]
 [phases.install]
 cmds = ["pip install uv", "uv sync --locked --no-dev"]
 
+[phases.build]
+cmds = ["uv run python backend/manage.py collectstatic --noinput"]
+
 [start]
-cmd = "cd backend && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn core.wsgi --bind 0.0.0.0:$PORT"
+cmd = "cd backend && uv run python manage.py migrate && uv run gunicorn core.wsgi --bind 0.0.0.0:$PORT"
