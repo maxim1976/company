@@ -38,6 +38,10 @@ DEBUG = os.environ.get("DEBUG", "True").lower() in ("true", "1", "yes")
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 
+# Allow Railway domains when not in debug mode
+if not DEBUG:
+    ALLOWED_HOSTS = ["*"]  # Or specify: ["company-production-c2c1.up.railway.app"]
+
 
 # Application definition
 

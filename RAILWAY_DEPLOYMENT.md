@@ -201,3 +201,18 @@ python backend/manage.py createsuperuser
 ---
 
 Last updated: December 8, 2025
+
+<!-- ✅ Created RAILWAY_DEPLOYMENT.md - A comprehensive deployment guide covering:
+
+Configuration setup - Environment variables, railway.toml, no nixpacks.toml
+Common issues - All the problems we encountered with solutions
+Deployment steps - Simple git push workflow
+Database connection - Production and local development
+Troubleshooting - Commands to run when things go wrong
+Best practices - Dos and don'ts
+Key takeaways for future deployments:
+
+❌ Never create nixpacks.toml - let Railway auto-detect
+✅ Keep railway.toml minimal with just startCommand
+✅ Run migrations and collectstatic in startCommand (not build)
+✅ Let Railway handle pip installation automatically -->
