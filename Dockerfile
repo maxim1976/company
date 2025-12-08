@@ -1,15 +1,17 @@
 # Use Python 3.12 slim image
 FROM python:3.12-slim
 
-# Install system dependencies
+# Install system dependencies including PostgreSQL client
 RUN apt-get update && apt-get install -y \
     curl \
     build-essential \
+    libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Node.js 18 for frontend build
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
-    apt-get install -y nodejs
+# Install Node.js 20 for frontend build
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install uv
 RUN pip install uv
@@ -21,7 +23,7 @@ WORKDIR /app
 COPY pyproject.toml uv.lock ./
 
 # Install Python dependencies
-RUN uv sync --frozen --no-install-project --no-dev
+RUN uv sync --frozen --no-dev
 
 # Copy the rest of the application
 COPY . .
@@ -29,12 +31,11 @@ COPY . .
 # Build frontend
 RUN cd frontend && npm install && npm run build
 
-# Collect static files and run migrations
+# Collect static files
 RUN uv run python backend/manage.py collectstatic --noinput
-RUN uv run python backend/manage.py migrate
 
 # Expose port
-EXPOSE 8000
+EXPOSE 8080
 
 # Start the application
-CMD ["uv", "run", "gunicorn", "core.wsgi", "--bind", "0.0.0.0:8000"]
+CMD cd backend && uv run gunicorn core.wsgi --bind 0.0.0.0:$PORT
