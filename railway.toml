@@ -1,6 +1,5 @@
 [build]
-builder = "DOCKERFILE"
-dockerfilePath = "Dockerfile"
+builder = "NIXPACKS"
 
 [deploy]
-startCommand = "cd backend && uv run gunicorn core.wsgi --bind 0.0.0.0:$PORT"
+startCommand = "cd backend && python manage.py migrate && gunicorn core.wsgi --bind 0.0.0.0:$PORT"
