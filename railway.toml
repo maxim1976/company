@@ -1,5 +1,6 @@
 [build]
-command = "cd frontend && npm install && npm run build && cd .. && uv sync && uv run python backend/manage.py collectstatic --noinput && uv run python backend/manage.py migrate"
+builder = "nixpacks"
+buildCommand = "bash build.sh"
 
 [deploy]
-startCommand = "cd backend && gunicorn core.wsgi"
+startCommand = "cd backend && gunicorn core.wsgi --bind 0.0.0.0:$PORT"

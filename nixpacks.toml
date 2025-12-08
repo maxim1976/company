@@ -1,11 +1,9 @@
 [phases.setup]
-nixPkgs = ["nodejs_20", "npm"]
-
-[phases.install]
-cmds = ["uv sync --no-dev"]
+nixPkgs = ["nodejs_20"]
+aptPkgs = ["npm"]
 
 [phases.build]
 cmds = ["cd frontend && npm install && npm run build", "uv run python backend/manage.py collectstatic --noinput", "uv run python backend/manage.py migrate"]
 
 [start]
-cmd = "cd backend && gunicorn core.wsgi"
+cmd = "cd backend && gunicorn core.wsgi --bind 0.0.0.0:$PORT"
