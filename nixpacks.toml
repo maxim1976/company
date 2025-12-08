@@ -1,5 +1,8 @@
+[phases.setup]
+providers = ["python"]
+
 [phases.install]
-cmds = ["uv sync --locked --no-dev"]
+cmds = ["pip install uv", "uv sync --locked --no-dev"]
 
 [start]
 cmd = "cd backend && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn core.wsgi --bind 0.0.0.0:$PORT"
