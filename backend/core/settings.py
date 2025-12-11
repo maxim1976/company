@@ -41,6 +41,10 @@ ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(","
 # Allow Railway domains when not in debug mode
 if not DEBUG:
     ALLOWED_HOSTS = ["*"]  # Or specify: ["company-production-c2c1.up.railway.app"]
+    CSRF_TRUSTED_ORIGINS = [
+        "https://company-production-c2c1.up.railway.app",
+        "https://*.up.railway.app",
+    ]
 
 
 # Application definition
