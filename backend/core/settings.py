@@ -40,10 +40,12 @@ ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(","
 
 # Allow Railway domains when not in debug mode
 if not DEBUG:
-    ALLOWED_HOSTS = ["*"]  # Or specify: ["company-production-c2c1.up.railway.app"]
+    ALLOWED_HOSTS = ["*"]  # Or specify: ["company-production-c2c1.up.railway.app", "hualienvibe.com", "www.hualienvibe.com"]
     CSRF_TRUSTED_ORIGINS = [
         "https://company-production-c2c1.up.railway.app",
         "https://*.up.railway.app",
+        "https://hualienvibe.com",
+        "https://www.hualienvibe.com",
     ]
 
 
@@ -152,5 +154,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # CORS settings (not needed for Django templates, but keeping for API)
 CORS_ALLOWED_ORIGINS = [
     "https://company-production-d448.up.railway.app",
+    "https://hualienvibe.com",
+    "https://www.hualienvibe.com",
 ]
 CORS_ALLOW_ALL_ORIGINS = DEBUG  # Allow all in development

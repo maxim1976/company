@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <!-- Hero Section -->
-<section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 to-purple-700 text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+<section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 to-purple-700 text-white bg-cover bg-center bg-no-repeat relative" style="background-image: url('{% static 'images/hero-background.jpg' %}');">
+    <div class="absolute inset-0 bg-gradient-to-br from-blue-600/80 to-purple-700/80"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <h1 class="text-5xl md:text-7xl font-bold mb-6">
             打造您的數位未來<br>
             <span class="text-blue-200">Building Your Digital Future</span>
