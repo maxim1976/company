@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Studio - Web Development & Design{% endblock %}</title>
+    <title>{% block title %}Hualien Vibe Digital Studio - Web Development & Design{% endblock %}</title>
     <meta name="description" content="Professional web development and design services in Hualien, Taiwan">
     
     <!-- Tailwind CSS CDN for simplicity -->
@@ -19,8 +19,10 @@
     <!-- Navigation -->
     <nav class="fixed top-0 w-full bg-white shadow-sm z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="text-2xl font-bold text-blue-600">Studio</div>
+            <div class="flex justify-between items-center h-20">
+                <a href="#home" class="flex items-center space-x-2">
+                    <img src="{% static 'images/logo.png' %}" alt="Hualien Vibe Digital Studio" class="h-16 w-auto">
+                </a>
                 <div class="hidden md:flex space-x-8">
                     <a href="#home" class="text-gray-700 hover:text-blue-600 transition">首頁 Home</a>
                     <a href="#services" class="text-gray-700 hover:text-blue-600 transition">服務 Services</a>
@@ -53,7 +55,7 @@
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-8 mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-gray-400">&copy; 2025 Studio. 版權所有 All rights reserved.</p>
+            <p class="text-gray-400">&copy; 2025 Hualien Vibe Digital Studio. 版權所有 All rights reserved.</p>
             <p class="text-gray-400 mt-2">花蓮, 台灣 Hualien, Taiwan</p>
         </div>
     </footer>
