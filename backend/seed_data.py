@@ -10,11 +10,12 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
 django.setup()
 
-from landing_page.models import PortfolioProject, Service
+from landing_page.models import PortfolioProject, PricingPlan, Service
 
 # Clear existing data
 Service.objects.all().delete()
 PortfolioProject.objects.all().delete()
+PricingPlan.objects.all().delete()
 
 # Seed Services
 services = [
@@ -70,5 +71,59 @@ projects = [
 for project in projects:
     PortfolioProject.objects.create(**project)
 print(f"Created {len(projects)} portfolio projects")
+
+# Seed Pricing Plans
+pricing_plans = [
+    {
+        "name_zh": "基礎方案",
+        "name_en": "Basic Plan",
+        "description_zh": "適合小型企業的靜態網站解決方案",
+        "description_en": "Perfect static website solution for small businesses",
+        "price_one_time": 5000,
+        "price_monthly": None,
+        "billing_period": "one_time",
+        "is_highlighted": False,
+        "cta_text_zh": "立即開始",
+        "cta_text_en": "Get Started",
+        "order": 1,
+        "features": [
+            {"name_zh": "HTML 靜態網站", "name_en": "HTML static website", "included": True},
+            {"name_zh": "響應式設計", "name_en": "Responsive design", "included": True},
+            {"name_zh": "聯絡表單", "name_en": "Contact form", "included": True},
+            {"name_zh": "基本 SEO 優化", "name_en": "Basic SEO optimization", "included": True},
+            {"name_zh": "後台管理系統", "name_en": "Admin panel", "included": False},
+            {"name_zh": "資料庫整合", "name_en": "Database integration", "included": False},
+            {"name_zh": "雲端主機託管", "name_en": "Cloud hosting", "included": False},
+            {"name_zh": "每月維護", "name_en": "Monthly maintenance", "included": False},
+        ],
+    },
+    {
+        "name_zh": "進階方案",
+        "name_en": "Advanced Plan",
+        "description_zh": "全功能網站應用程式，含後台管理與雲端託管",
+        "description_en": "Full-featured web application with admin panel and cloud hosting",
+        "price_one_time": 15000,
+        "price_monthly": 3000,
+        "billing_period": "both",
+        "is_highlighted": True,
+        "cta_text_zh": "立即升級",
+        "cta_text_en": "Get Started",
+        "order": 2,
+        "features": [
+            {"name_zh": "Django 後端框架", "name_en": "Django backend framework", "included": True},
+            {"name_zh": "PostgreSQL 資料庫", "name_en": "PostgreSQL database", "included": True},
+            {"name_zh": "後台管理系統", "name_en": "Admin panel", "included": True},
+            {"name_zh": "AWS 雲端主機", "name_en": "AWS cloud hosting", "included": True},
+            {"name_zh": "SSL 安全憑證", "name_en": "SSL certificate", "included": True},
+            {"name_zh": "每月維護與更新", "name_en": "Monthly maintenance & updates", "included": True},
+            {"name_zh": "優先技術支援", "name_en": "Priority support", "included": True},
+            {"name_zh": "自訂功能開發", "name_en": "Custom feature development", "included": True},
+        ],
+    },
+]
+
+for plan in pricing_plans:
+    PricingPlan.objects.create(**plan)
+print(f"Created {len(pricing_plans)} pricing plans")
 
 print("\nSeed complete!")

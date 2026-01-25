@@ -48,7 +48,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-4xl font-bold text-center mb-4">我們的作品 Our Portfolio</h2>
         <p class="text-gray-600 text-center mb-12">精選專案展示 Featured Projects</p>
-        
+
         <div class="grid md:grid-cols-3 gap-8">
             {% for project in portfolio %}
             <div class="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition">
@@ -65,6 +65,85 @@
                 </div>
             </div>
             {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section id="pricing" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-4xl font-bold text-center mb-4">我們的方案 Our Pricing Plans</h2>
+        <p class="text-gray-600 text-center mb-12">選擇最適合您的方案 Choose the plan that fits your needs</p>
+
+        <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {% for plan in pricing_plans %}
+            <div class="relative bg-white rounded-lg p-8 border-2 {% if plan.is_highlighted %}border-blue-500 shadow-xl bg-blue-50{% else %}border-gray-200 hover:shadow-lg{% endif %} transition">
+                {% if plan.is_highlighted %}
+                <div class="absolute top-0 right-0 bg-blue-500 text-white px-4 py-1 rounded-bl-lg rounded-tr-lg text-sm font-semibold">
+                    推薦 Recommended
+                </div>
+                {% endif %}
+
+                <h3 class="text-2xl font-bold mb-2 {% if plan.is_highlighted %}text-blue-700{% else %}text-gray-900{% endif %}">
+                    {{ plan.name_zh }}<br>
+                    <span class="text-lg font-normal text-gray-600">{{ plan.name_en }}</span>
+                </h3>
+
+                <p class="text-gray-600 mb-6 min-h-[3rem]">
+                    {{ plan.description_zh }}<br>
+                    <span class="text-sm">{{ plan.description_en }}</span>
+                </p>
+
+                <div class="mb-6">
+                    {% if plan.price_one_time %}
+                    <div class="mb-2">
+                        <span class="text-3xl font-bold text-gray-900">NT${{ plan.price_one_time|floatformat:0 }}</span>
+                        <span class="text-gray-600"> 一次性 one-time</span>
+                    </div>
+                    {% endif %}
+                    {% if plan.price_monthly %}
+                    <div class="mb-2">
+                        <span class="text-3xl font-bold text-gray-900">NT${{ plan.price_monthly|floatformat:0 }}</span>
+                        <span class="text-gray-600"> /月 per month</span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <ul class="space-y-3 mb-8">
+                    {% for feature in plan.features %}
+                    <li class="flex items-start">
+                        {% if feature.included %}
+                        <svg class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="text-gray-700">
+                            {{ feature.name_zh }}<br>
+                            <span class="text-sm text-gray-500">{{ feature.name_en }}</span>
+                        </span>
+                        {% else %}
+                        <svg class="w-5 h-5 text-gray-300 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                        <span class="text-gray-400">
+                            {{ feature.name_zh }}<br>
+                            <span class="text-sm">{{ feature.name_en }}</span>
+                        </span>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <a href="#contact" class="block w-full text-center {% if plan.is_highlighted %}bg-blue-600 hover:bg-blue-700{% else %}bg-gray-800 hover:bg-gray-900{% endif %} text-white px-6 py-3 rounded-lg font-semibold transition">
+                    {{ plan.cta_text_zh }} {{ plan.cta_text_en }}
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-12">
+            <p class="text-gray-600">
+                需要客製化方案？Need a custom solution? <a href="#contact" class="text-blue-600 hover:text-blue-800 font-semibold">聯絡我們 Contact us</a>
+            </p>
         </div>
     </div>
 </section>

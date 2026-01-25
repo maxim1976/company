@@ -4,10 +4,11 @@ from django.views.decorators.http import require_http_methods
 from rest_framework import generics, status
 from rest_framework.response import Response
 
-from .models import ContactSubmission, PortfolioProject, Service
+from .models import ContactSubmission, PortfolioProject, PricingPlan, Service
 from .serializers import (
     ContactSubmissionSerializer,
     PortfolioProjectSerializer,
+    PricingPlanSerializer,
     ServiceSerializer,
 )
 
@@ -18,6 +19,7 @@ def landing_page_view(request):
     context = {
         'services': Service.objects.filter(is_active=True),
         'portfolio': PortfolioProject.objects.filter(is_active=True),
+        'pricing_plans': PricingPlan.objects.filter(is_active=True),
     }
     return render(request, 'landing_page/index.html', context)
 
@@ -55,6 +57,13 @@ class PortfolioListView(generics.ListAPIView):
 
     queryset = PortfolioProject.objects.filter(is_active=True)
     serializer_class = PortfolioProjectSerializer
+
+
+class PricingListView(generics.ListAPIView):
+    """List all active pricing plans."""
+
+    queryset = PricingPlan.objects.filter(is_active=True)
+    serializer_class = PricingPlanSerializer
 
 
 class ContactCreateView(generics.CreateAPIView):
