@@ -56,6 +56,8 @@ class PricingPlan(models.Model):
     price_monthly = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, help_text="Monthly price in TWD")
     features = models.JSONField(default=list, help_text='List of features: [{"name_zh": "...", "name_en": "...", "included": true}]')
     billing_period = models.CharField(max_length=20, choices=BILLING_CHOICES, default='one_time')
+    plan_type = models.CharField(max_length=20, default='basic', help_text="CSS class type: basic, standard, advanced")
+    sub_note = models.CharField(max_length=200, blank=True, help_text="Small note below price, supports HTML")
     is_highlighted = models.BooleanField(default=False, help_text="Mark as recommended plan")
     cta_text_zh = models.CharField(max_length=50, default="立即開始", help_text="CTA button text in Chinese")
     cta_text_en = models.CharField(max_length=50, default="Get Started", help_text="CTA button text in English")

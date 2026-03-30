@@ -377,8 +377,8 @@
   .pricing-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2rem;
-    max-width: 860px;
+    gap: 1rem;
+    max-width: 1100px;
     margin: 0 auto;
   }
 
@@ -386,35 +386,87 @@
     .pricing-grid { grid-template-columns: 1fr 1fr; }
   }
 
-  .pricing-card {
-    position: relative;
-    padding: 2.5rem 2.25rem;
-    border: 1px solid var(--border);
-    background: var(--bg);
-    transition: border-color 0.3s ease;
+  @media (min-width: 960px) {
+    .pricing-grid { grid-template-columns: 1fr 1fr 1fr; }
   }
 
-  .pricing-card.highlighted {
-    border-color: rgba(200,160,87,0.5);
-    background: linear-gradient(135deg, rgba(200,160,87,0.05) 0%, var(--bg) 60%);
+  .pricing-card {
+    position: relative;
+    padding: 2.25rem 2rem 2.5rem;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: rgba(255,255,255,0.03);
+    overflow: hidden;
+    transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
   }
+
+  .pricing-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255,255,255,0.055);
+  }
+
+  /* Coloured top bar per plan */
+  .pricing-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .pricing-card.plan-basic::before    { background: linear-gradient(90deg, #3b82f6, #06d6c7); }
+  .pricing-card.plan-standard::before { background: linear-gradient(90deg, #8b5cf6, #3b82f6); }
+  .pricing-card.plan-advanced::before { background: linear-gradient(90deg, #f59e0b, #f97316, #8b5cf6); }
+  .pricing-card.plan-advanced         { border-color: rgba(245,158,11,0.25); }
+
+  /* Corner glow */
+  .pricing-card::after {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    opacity: 0.06;
+    pointer-events: none;
+  }
+  .pricing-card.plan-basic::after    { background: #06d6c7; }
+  .pricing-card.plan-standard::after { background: #8b5cf6; }
+  .pricing-card.plan-advanced::after { background: #f59e0b; opacity: 0.1; }
 
   .pricing-badge {
     position: absolute;
-    top: 0; right: 0;
-    background: var(--gold);
-    color: #0d1117;
+    top: 16px; right: 16px;
     font-size: 0.55rem;
     font-weight: 700;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    padding: 0.4rem 1rem;
+    background: linear-gradient(135deg, #f59e0b, #f97316);
+    color: #000;
+    padding: 4px 10px;
+    border-radius: 100px;
   }
+
+  .pricing-plan-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-bottom: 1.1rem;
+  }
+
+  .pricing-card.plan-basic    .pricing-plan-tag { background: rgba(6,214,199,0.1);  color: #06d6c7; border: 1px solid rgba(6,214,199,0.25); }
+  .pricing-card.plan-standard .pricing-plan-tag { background: rgba(139,92,246,0.1); color: #a78bfa; border: 1px solid rgba(139,92,246,0.25); }
+  .pricing-card.plan-advanced .pricing-plan-tag { background: rgba(245,158,11,0.1); color: #f59e0b; border: 1px solid rgba(245,158,11,0.25); }
 
   .pricing-name-zh {
     font-family: var(--serif);
     font-style: italic;
-    font-size: 1.8rem;
+    font-size: 1.75rem;
     font-weight: 300;
     color: var(--text);
     line-height: 1;
@@ -423,72 +475,110 @@
 
   .pricing-name-en {
     font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
+    font-weight: 400;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
     color: var(--muted2);
-    margin-bottom: 0.85rem;
+    margin-bottom: 0.75rem;
   }
 
   .pricing-desc {
-    font-family: var(--serif);
-    font-size: 0.98rem;
+    font-size: 0.8rem;
     font-weight: 300;
     color: var(--muted);
     line-height: 1.6;
-    margin-bottom: 1.75rem;
-    min-height: 3rem;
+    margin-bottom: 1.5rem;
   }
 
   .pricing-price {
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
   }
 
   .pricing-amount {
-    font-family: var(--serif);
-    font-size: 2.4rem;
+    font-size: 2.2rem;
     font-weight: 600;
-    color: var(--text);
     line-height: 1;
+    letter-spacing: -0.02em;
   }
 
+  .pricing-card.plan-basic    .pricing-amount { color: #06d6c7; }
+  .pricing-card.plan-standard .pricing-amount { color: #a78bfa; }
+  .pricing-card.plan-advanced .pricing-amount { color: #f59e0b; }
+
   .pricing-period {
-    font-size: 0.7rem;
-    font-weight: 500;
+    font-size: 0.68rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
     color: var(--muted);
     margin-left: 0.35rem;
   }
 
+  .pricing-sub-note {
+    margin-top: 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .pricing-sub-note strong { color: var(--text); font-weight: 500; }
+
   .pricing-features {
     list-style: none;
-    margin-bottom: 2.25rem;
+    margin-bottom: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 0.85rem;
+    gap: 0.75rem;
   }
 
   .pricing-features li {
     display: flex;
     align-items: flex-start;
-    gap: 0.75rem;
-    font-family: var(--serif);
-    font-size: 1rem;
+    gap: 0.65rem;
+    font-size: 0.82rem;
     font-weight: 300;
     color: var(--muted);
-    line-height: 1.55;
+    line-height: 1.4;
   }
 
   .pricing-features li.included { color: var(--text); }
-  .pricing-features li.excluded { opacity: 0.4; }
+  .pricing-features li.excluded { opacity: 0.35; }
 
   .feat-icon {
     flex-shrink: 0;
-    margin-top: 3px;
-    width: 14px; height: 14px;
+    margin-top: 2px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.5rem;
   }
 
-  .feat-icon.check { color: var(--gold); }
-  .feat-icon.cross  { color: var(--muted2); }
+  .pricing-card.plan-basic    .feat-icon.check { background: rgba(6,214,199,0.12);  color: #06d6c7; }
+  .pricing-card.plan-standard .feat-icon.check { background: rgba(139,92,246,0.12); color: #a78bfa; }
+  .pricing-card.plan-advanced .feat-icon.check { background: rgba(245,158,11,0.12); color: #f59e0b; }
+  .feat-icon.cross { background: rgba(255,255,255,0.05); color: var(--muted2); }
+
+  .payment-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 5px;
+  }
+
+  .payment-tag {
+    font-size: 0.58rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    padding: 2px 8px;
+    border-radius: 100px;
+    background: rgba(245,158,11,0.08);
+    border: 1px solid rgba(245,158,11,0.2);
+    color: #f59e0b;
+  }
 
   .pricing-cta {
     position: relative;
@@ -503,6 +593,7 @@
     color: var(--text);
     padding: 1rem 0;
     border: 1px solid rgba(232,226,216,0.22);
+    border-radius: 8px;
     overflow: hidden;
     transition: color 0.35s ease, border-color 0.35s ease;
   }
@@ -520,13 +611,9 @@
   .pricing-cta:hover::before { transform: scaleX(1); }
   .pricing-cta span { position: relative; z-index: 1; }
 
-  .pricing-card.highlighted .pricing-cta {
-    border-color: rgba(200,160,87,0.5);
-    color: var(--gold);
-  }
-
-  .pricing-card.highlighted .pricing-cta::before {
-    background: rgba(200,160,87,0.15);
+  .pricing-card.plan-advanced .pricing-cta {
+    border-color: rgba(245,158,11,0.4);
+    color: #f59e0b;
   }
 
   .pricing-note {
@@ -828,17 +915,19 @@
 
     <div class="pricing-grid">
       {% for plan in pricing_plans %}
-      <div class="pricing-card {% if plan.is_highlighted %}highlighted{% endif %} reveal reveal-d{{ forloop.counter }}">
+      <div class="pricing-card plan-{{ plan.plan_type }} reveal reveal-d{{ forloop.counter }}">
         {% if plan.is_highlighted %}
-        <div class="pricing-badge">推薦 Recommended</div>
+        <div class="pricing-badge">客製化 Custom</div>
         {% endif %}
+
+        <div class="pricing-plan-tag">{{ plan.name_zh }} · {{ plan.name_en }}</div>
 
         <p class="pricing-name-zh">{{ plan.name_zh }}</p>
         <p class="pricing-name-en">{{ plan.name_en }}</p>
 
         <div class="pricing-desc">
           {{ plan.description_zh }}<br>
-          <span style="font-size:0.9rem">{{ plan.description_en }}</span>
+          <span style="font-size:0.85rem">{{ plan.description_en }}</span>
         </div>
 
         <div class="pricing-price">
@@ -847,12 +936,20 @@
             <span class="pricing-amount">NT${{ plan.price_one_time|floatformat:0 }}</span>
             <span class="pricing-period">一次性 one-time</span>
           </div>
+          {% else %}
+          <div>
+            <span class="pricing-amount">NT$10,000+</span>
+          </div>
+          <div style="margin-top:0.3rem;font-size:0.68rem;letter-spacing:0.12em;color:var(--muted);">依需求報價 · custom quote</div>
           {% endif %}
           {% if plan.price_monthly %}
-          <div>
-            <span class="pricing-amount">NT${{ plan.price_monthly|floatformat:0 }}</span>
+          <div style="margin-top:0.4rem;">
+            <span class="pricing-amount" style="font-size:1.4rem;">NT${{ plan.price_monthly|floatformat:0 }}</span>
             <span class="pricing-period">/月 per month</span>
           </div>
+          {% endif %}
+          {% if plan.sub_note %}
+          <div class="pricing-sub-note">{{ plan.sub_note|safe }}</div>
           {% endif %}
         </div>
 
@@ -860,21 +957,20 @@
           {% for feature in plan.features %}
           <li class="{% if feature.included %}included{% else %}excluded{% endif %}">
             {% if feature.included %}
-            <svg class="feat-icon check" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2.5"
-                 stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 13l4 4L19 7"/>
-            </svg>
+            <span class="feat-icon check">✦</span>
             {% else %}
-            <svg class="feat-icon cross" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2"
-                 stroke-linecap="round">
-              <path d="M6 18L18 6M6 6l12 12"/>
-            </svg>
+            <span class="feat-icon cross">✕</span>
             {% endif %}
             <span>
               {{ feature.name_zh }}<br>
-              <span style="font-size:0.88rem;opacity:0.7">{{ feature.name_en }}</span>
+              <span style="font-size:0.75rem;opacity:0.65">{{ feature.name_en }}</span>
+              {% if feature.tags %}
+              <div class="payment-tags">
+                {% for tag in feature.tags %}
+                <span class="payment-tag">{{ tag }}</span>
+                {% endfor %}
+              </div>
+              {% endif %}
             </span>
           </li>
           {% endfor %}
